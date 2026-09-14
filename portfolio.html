@@ -1,0 +1,594 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Mohamed Ashraf Mahmoud — Computer Engineer, AI/ML</title>
+<meta name="description" content="Portfolio of Mohamed Ashraf Mahmoud — Computer Engineering graduate, AI/ML development, Dubai UAE.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@400;500;600;700&family=Inter:wght@400;500;600&family=IBM+Plex+Mono:wght@400;500&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   TOKENS — deep ink base, vivid amber/cyan glow, no pastel
+   ============================================================ */
+:root{
+  --bg: #05070A;
+  --panel: #0C1015;
+  --panel-raised: #10151B;
+  --border: #263041;
+  --border-bright: #3A4658;
+
+  --text: #F3F6FA;
+  --text-dim: #9AA6B8;
+  --text-faint: #596374;
+
+  --amber: #FF8C1A;
+  --amber-soft: #FFB565;
+  --amber-glow: rgba(255,140,26,0.45);
+
+  --cyan: #22E8D2;
+  --cyan-glow: rgba(34,232,210,0.4);
+
+  --font-display: 'Space Grotesk', sans-serif;
+  --font-body: 'Inter', sans-serif;
+  --font-mono: 'IBM Plex Mono', monospace;
+
+  --max-w: 1080px;
+  --edge: 32px;
+}
+
+*{ box-sizing: border-box; }
+html{ scroll-behavior: smooth; }
+
+body{
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body);
+  font-size: 16px;
+  line-height: 1.55;
+  -webkit-font-smoothing: antialiased;
+  position: relative;
+  overflow-x: hidden;
+}
+
+a{ color: inherit; text-decoration: none; }
+h1,h2,h3{ font-family: var(--font-display); font-weight: 700; margin: 0; letter-spacing: -0.01em; }
+
+@media (prefers-reduced-motion: reduce){
+  html{ scroll-behavior: auto; }
+  *{ animation: none !important; transition: none !important; }
+}
+
+/* ============================================================
+   AMBIENT BACKGROUND — glow field + faint moving grid
+   ============================================================ */
+.bg-field{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background:
+    radial-gradient(680px 480px at 12% -6%, var(--amber-glow), transparent 60%),
+    radial-gradient(720px 520px at 92% 18%, var(--cyan-glow), transparent 60%),
+    radial-gradient(900px 700px at 50% 120%, rgba(34,232,210,0.12), transparent 65%);
+  opacity: 0.55;
+}
+.bg-grid{
+  position: fixed;
+  inset: 0;
+  z-index: 0;
+  pointer-events: none;
+  background-image:
+    linear-gradient(rgba(255,255,255,0.035) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(255,255,255,0.035) 1px, transparent 1px);
+  background-size: 64px 64px;
+  mask-image: radial-gradient(ellipse 900px 700px at 50% 0%, black 40%, transparent 85%);
+  animation: gridDrift 40s linear infinite;
+}
+@keyframes gridDrift{
+  from{ background-position: 0 0, 0 0; }
+  to{ background-position: 64px 128px, 64px 128px; }
+}
+
+.crosshair{
+  position: fixed; width: 18px; height: 18px; z-index: 5; pointer-events: none; opacity: 0.4;
+}
+.crosshair::before, .crosshair::after{ content:""; position:absolute; background: var(--cyan); }
+.crosshair::before{ width:100%; height:1px; top:50%; }
+.crosshair::after{ height:100%; width:1px; left:50%; }
+.tl{ top:14px; left:14px; } .tr{ top:14px; right:14px; }
+.bl{ bottom:14px; left:14px; } .br{ bottom:14px; right:14px; }
+@media (max-width: 720px){ .crosshair{ display:none; } }
+
+main, .site-header, .site-footer{ position: relative; z-index: 2; }
+
+/* ============================================================
+   HEADER
+   ============================================================ */
+.site-header{
+  display: flex; align-items: center; justify-content: space-between;
+  padding: 20px var(--edge);
+  position: sticky; top: 0; z-index: 10;
+  background: rgba(5,7,10,0.78);
+  backdrop-filter: blur(10px);
+  border-bottom: 1px solid var(--border);
+}
+.mark{ font-family: var(--font-mono); font-size: 13px; letter-spacing: 0.02em; }
+.mark-dot{ color: var(--amber); margin: 0 1px; text-shadow: 0 0 12px var(--amber-glow); }
+
+.nav{ display:flex; gap:28px; }
+.nav a{ font-size:14px; color: var(--text-dim); transition: color .15s ease; position: relative; }
+.nav a:hover{ color: var(--cyan); }
+
+.gh-link{
+  display:flex; align-items:center; gap:8px;
+  font-family: var(--font-mono); font-size:13px; color: var(--text-dim);
+  border:1px solid var(--border); padding:7px 12px;
+  transition: border-color .15s ease, color .15s ease, box-shadow .15s ease;
+}
+.gh-link:hover{ border-color: var(--cyan); color: var(--cyan); box-shadow: 0 0 18px -6px var(--cyan-glow); }
+
+@media (max-width: 720px){ .nav{ display:none; } }
+
+/* ============================================================
+   HERO
+   ============================================================ */
+.hero{
+  max-width: var(--max-w); margin: 0 auto; padding: 100px var(--edge) 72px;
+  display: grid; grid-template-columns: 1.3fr 1fr; gap: 56px; align-items: start;
+}
+
+.eyebrow-plain{ font-family: var(--font-mono); font-size:13px; color: var(--cyan); margin: 0 0 18px; }
+
+.hero h1{
+  font-size: clamp(2.6rem, 5.4vw, 4.1rem);
+  line-height: 1.03;
+  margin-bottom: 24px;
+}
+.h1-line2{
+  background: linear-gradient(100deg, var(--amber-soft), var(--cyan));
+  -webkit-background-clip: text;
+  background-clip: text;
+  color: transparent;
+}
+
+.hero-lede{ color: var(--text-dim); font-size: 17.5px; max-width: 54ch; margin: 0 0 34px; }
+
+.hero-actions{ display:flex; gap:14px; flex-wrap:wrap; }
+
+.btn{ font-family: var(--font-mono); font-size:13.5px; padding:13px 22px; border:1px solid transparent; display:inline-block; transition: transform .15s ease, box-shadow .15s ease; }
+.btn-primary{ background: var(--amber); color:#160E04; font-weight:600; box-shadow: 0 0 0 rgba(255,140,26,0); }
+.btn-primary:hover{ box-shadow: 0 8px 30px -8px var(--amber-glow); transform: translateY(-1px); }
+.btn-ghost{ border-color: var(--border-bright); color: var(--text); }
+.btn-ghost:hover{ border-color: var(--cyan); color: var(--cyan); box-shadow: 0 8px 30px -10px var(--cyan-glow); transform: translateY(-1px); }
+
+/* --- Readout panel with animated scan sweep --- */
+.readout{
+  position: relative;
+  border: 1px solid var(--border-bright);
+  background: linear-gradient(180deg, var(--panel-raised), var(--panel));
+  padding: 24px;
+  display: flex; flex-direction: column; gap: 16px;
+  overflow: hidden;
+  box-shadow: 0 0 60px -30px var(--cyan-glow), inset 0 1px 0 rgba(255,255,255,0.03);
+}
+.readout::before{
+  content:"";
+  position:absolute; left:0; right:0; height: 2px;
+  background: linear-gradient(90deg, transparent, var(--cyan), transparent);
+  top: -10%;
+  animation: scanSweep 4.5s ease-in-out infinite;
+  opacity: 0.85;
+  filter: drop-shadow(0 0 6px var(--cyan-glow));
+}
+@keyframes scanSweep{
+  0%{ top: -5%; }
+  50%{ top: 100%; }
+  100%{ top: -5%; }
+}
+
+.readout-row{ display:flex; flex-direction:column; gap:4px; padding-bottom:14px; border-bottom:1px solid var(--border); }
+.readout-row:last-child{ border-bottom:none; padding-bottom:0; }
+.readout-label{ font-family: var(--font-mono); font-size:11px; letter-spacing:0.06em; color: var(--text-faint); }
+.readout-value{ font-size:14.5px; color: var(--text); }
+.status-live{ display:flex; align-items:center; gap:8px; color: var(--cyan); }
+.dot{ width:7px; height:7px; border-radius:50%; background: var(--cyan); box-shadow: 0 0 0 4px rgba(34,232,210,0.18), 0 0 10px var(--cyan-glow); animation: pulse 2s ease-in-out infinite; }
+@keyframes pulse{ 0%,100%{ opacity:1; } 50%{ opacity:0.4; } }
+
+@media (max-width: 860px){ .hero{ grid-template-columns: 1fr; padding-top: 64px; } }
+
+/* ============================================================
+   SECTIONS
+   ============================================================ */
+.section{ max-width: var(--max-w); margin: 0 auto; padding: 76px var(--edge); border-top: 1px solid var(--border); }
+
+.section-head{ display:flex; justify-content:space-between; align-items:baseline; flex-wrap:wrap; gap:8px 24px; margin-bottom:40px; }
+.section-head h2{ font-size:1.7rem; display:flex; align-items:center; gap:12px; }
+.section-head h2::before{
+  content:"";
+  width: 22px; height: 2px;
+  background: linear-gradient(90deg, var(--amber), var(--cyan));
+  display:inline-block;
+}
+.section-note{ color: var(--text-faint); font-size:14px; margin:0; }
+
+/* ============================================================
+   PROJECTS
+   ============================================================ */
+.project-list{ display:flex; flex-direction:column; gap:22px; }
+
+.project{
+  border: 1px solid var(--border);
+  background: linear-gradient(180deg, rgba(255,255,255,0.015), transparent 30%), var(--panel);
+  transition: border-color .2s ease, box-shadow .2s ease;
+}
+.project:hover{ border-color: var(--border-bright); box-shadow: 0 20px 50px -30px rgba(34,232,210,0.25); }
+
+.project-head{
+  display:flex; justify-content:space-between; align-items:center; gap:16px;
+  padding:18px 24px; border-bottom:1px solid var(--border); flex-wrap:wrap;
+}
+.project-head h3{ font-size:1.2rem; }
+.project-period{ font-family: var(--font-mono); font-size:12px; color: var(--text-faint); white-space:nowrap; }
+
+.project-body{ padding:26px 24px; }
+.project-desc{ color: var(--text-dim); margin:0 0 22px; max-width:70ch; }
+
+.project-metrics{ display:flex; gap:36px; flex-wrap:wrap; margin-bottom:22px; }
+.metric{ display:flex; flex-direction:column; }
+.metric-value{ font-family: var(--font-mono); font-size:1.9rem; color: var(--cyan); line-height:1; text-shadow: 0 0 22px var(--cyan-glow); }
+.metric-label{ font-family: var(--font-mono); font-size:10.5px; color: var(--text-faint); letter-spacing:0.05em; margin-top:7px; }
+
+.project-tags{ display:flex; flex-wrap:wrap; gap:8px; margin-bottom:22px; }
+.tag{ font-family: var(--font-mono); font-size:11.5px; color: var(--text-dim); border:1px solid var(--border-bright); padding:4px 9px; }
+
+.project-links{ display:flex; gap:20px; }
+.project-links a{ font-family: var(--font-mono); font-size:12.5px; color: var(--amber); border-bottom:1px solid transparent; transition: text-shadow .15s ease; }
+.project-links a:hover{ border-bottom-color: var(--amber); text-shadow: 0 0 14px var(--amber-glow); }
+
+/* ============================================================
+   SKILLS
+   ============================================================ */
+.skills-grid{ display:grid; grid-template-columns: repeat(3, 1fr); gap:32px; }
+.skill-group h3{ font-size:13px; font-family: var(--font-mono); color: var(--cyan); font-weight:500; margin-bottom:14px; }
+.tag-row{ display:flex; flex-wrap:wrap; gap:8px; }
+.tag-row .tag:hover{ border-color: var(--cyan); color: var(--text); }
+
+@media (max-width: 720px){ .skills-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   EXPERIENCE
+   ============================================================ */
+.timeline{ display:flex; flex-direction:column; }
+.timeline-item{ display:grid; grid-template-columns: 160px 1fr; gap:24px; padding:26px 0; border-top:1px solid var(--border); }
+.timeline-item:first-child{ border-top:none; }
+.timeline-date{ font-family: var(--font-mono); font-size:12px; color: var(--amber); padding-top:3px; }
+.timeline-role{ font-size:1.08rem; margin-bottom:3px; }
+.timeline-org{ color: var(--text-dim); font-size:14px; margin-bottom:12px; }
+.timeline-bullets{ margin:0; padding-left:18px; color: var(--text-dim); font-size:14.5px; }
+.timeline-bullets li{ margin-bottom:6px; }
+
+@media (max-width: 640px){ .timeline-item{ grid-template-columns: 1fr; gap:8px; } }
+
+/* ============================================================
+   CERTIFICATIONS
+   ============================================================ */
+.cert-grid{ display:grid; grid-template-columns: repeat(2, 1fr); gap:16px; }
+.cert{ border:1px solid var(--border); padding:18px 20px; transition: border-color .2s ease; }
+.cert:hover{ border-color: var(--amber); }
+.cert-name{ font-size:14.5px; margin-bottom:4px; }
+.cert-issuer{ font-family: var(--font-mono); font-size:12px; color: var(--text-faint); }
+
+@media (max-width: 640px){ .cert-grid{ grid-template-columns: 1fr; } }
+
+/* ============================================================
+   CONTACT + FOOTER
+   ============================================================ */
+.contact-row{ display:flex; gap:28px; flex-wrap:wrap; }
+.contact-link{ font-family: var(--font-mono); font-size:14.5px; color: var(--amber); border-bottom:1px solid transparent; transition: text-shadow .15s ease; }
+.contact-link:hover{ border-bottom-color: var(--amber); text-shadow: 0 0 14px var(--amber-glow); }
+
+.site-footer{ text-align:center; padding:32px var(--edge) 48px; color: var(--text-faint); font-family: var(--font-mono); font-size:12px; }
+
+</style>
+</head>
+<body>
+
+<div class="bg-field"></div>
+<div class="bg-grid"></div>
+<div class="crosshair tl"></div>
+<div class="crosshair tr"></div>
+<div class="crosshair bl"></div>
+<div class="crosshair br"></div>
+
+<header class="site-header">
+  <a href="#top" class="mark">M.A.M<span class="mark-dot">/</span>01</a>
+  <nav class="nav">
+    <a href="#work">Work</a>
+    <a href="#skills">Skills</a>
+    <a href="#experience">Experience</a>
+    <a href="#certifications">Certifications</a>
+    <a href="#contact">Contact</a>
+  </nav>
+  <a class="gh-link" href="https://github.com/MoMah54" target="_blank" rel="noopener">
+    <svg width="18" height="18" viewBox="0 0 24 24" fill="currentColor" aria-hidden="true"><path d="M12 0C5.37 0 0 5.5 0 12.3c0 5.44 3.44 10.05 8.21 11.68.6.12.82-.27.82-.6v-2.1c-3.34.75-4.04-1.64-4.04-1.64-.55-1.43-1.34-1.82-1.34-1.82-1.09-.77.08-.75.08-.75 1.2.09 1.84 1.27 1.84 1.27 1.07 1.87 2.8 1.33 3.49 1.02.11-.79.42-1.33.76-1.64-2.67-.31-5.47-1.38-5.47-6.14 0-1.36.47-2.46 1.24-3.33-.12-.31-.54-1.57.12-3.27 0 0 1.01-.33 3.3 1.27a11.2 11.2 0 0 1 6 0c2.29-1.6 3.3-1.27 3.3-1.27.66 1.7.24 2.96.12 3.27.77.87 1.24 1.97 1.24 3.33 0 4.78-2.81 5.82-5.49 6.13.43.38.81 1.14.81 2.3v3.4c0 .34.22.73.83.6C20.57 22.34 24 17.73 24 12.3 24 5.5 18.63 0 12 0Z"/></svg>
+    <span>Source</span>
+  </a>
+</header>
+
+<main id="top">
+
+  <!-- HERO -->
+  <section class="hero">
+    <div class="hero-copy">
+      <p class="eyebrow-plain">Computer Engineering — American University of Sharjah</p>
+      <h1>Mohamed Ashraf<br><span class="h1-line2">Mahmoud</span></h1>
+      <p class="hero-lede">I build AI-driven systems end to end — from ML pipelines and computer vision to the automation that puts them into someone's hands. Recent work spans aircraft defect detection, insurance workflow automation, and AI-native trading tools.</p>
+      <div class="hero-actions">
+        <a href="#work" class="btn btn-primary">See the work</a>
+        <a href="mailto:moh.elbadawi1@gmail.com" class="btn btn-ghost">Get in touch</a>
+      </div>
+    </div>
+
+    <div class="readout" aria-label="status panel">
+      <div class="readout-row">
+        <span class="readout-label">LOCATION</span>
+        <span class="readout-value">Dubai, UAE</span>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label">CURRENT</span>
+        <span class="readout-value">Business Process Automation Intern — Continental International Group</span>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label">FOCUS</span>
+        <span class="readout-value">AI / ML Development, Automation Engineering</span>
+      </div>
+      <div class="readout-row">
+        <span class="readout-label">STATUS</span>
+        <span class="readout-value status-live"><span class="dot"></span>Open to AI/ML &amp; Data Engineering roles</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- PROJECTS -->
+  <section id="work" class="section">
+    <div class="section-head">
+      <h2>Work</h2>
+      <p class="section-note">Selected projects. New builds get added here as they ship.</p>
+    </div>
+    <div id="project-list" class="project-list"><!-- injected by script.js --></div>
+  </section>
+
+  <!-- SKILLS -->
+  <section id="skills" class="section">
+    <div class="section-head">
+      <h2>Skills</h2>
+    </div>
+    <div class="skills-grid">
+      <div class="skill-group">
+        <h3>AI / ML &amp; Cloud</h3>
+        <div class="tag-row" id="skills-ai"></div>
+      </div>
+      <div class="skill-group">
+        <h3>Languages &amp; Frameworks</h3>
+        <div class="tag-row" id="skills-lang"></div>
+      </div>
+      <div class="skill-group">
+        <h3>Tools &amp; Platforms</h3>
+        <div class="tag-row" id="skills-tools"></div>
+      </div>
+    </div>
+  </section>
+
+  <!-- EXPERIENCE -->
+  <section id="experience" class="section">
+    <div class="section-head">
+      <h2>Experience</h2>
+    </div>
+    <div id="experience-list" class="timeline"><!-- injected by script.js --></div>
+  </section>
+
+  <!-- CERTIFICATIONS -->
+  <section id="certifications" class="section">
+    <div class="section-head">
+      <h2>Certifications</h2>
+    </div>
+    <div id="cert-list" class="cert-grid"><!-- injected by script.js --></div>
+  </section>
+
+  <!-- CONTACT -->
+  <section id="contact" class="section contact-section">
+    <div class="section-head">
+      <h2>Contact</h2>
+      <p class="section-note">Based in Dubai, UAE — open to AI/ML and data engineering roles.</p>
+    </div>
+    <div class="contact-row">
+      <a href="mailto:moh.elbadawi1@gmail.com" class="contact-link">moh.elbadawi1@gmail.com</a>
+      <a href="https://www.linkedin.com/in/mohamed-ashraf567484344" target="_blank" rel="noopener" class="contact-link">LinkedIn</a>
+      <a href="https://github.com/MoMah54" target="_blank" rel="noopener" class="contact-link">GitHub</a>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-footer">
+  <span>Mohamed Ashraf Mahmoud — Built by hand, deployed on Vercel.</span>
+</footer>
+
+<script>
+/* ==================================================================
+   PORTFOLIO DATA
+   To add a new project, copy an existing object in `projects` below
+   and fill in your own fields. Nothing else needs to change —
+   the page renders this list automatically.
+   ================================================================== */
+
+const projects = [
+  {
+    name: "AeroScan Pro",
+    period: "Sep 2025 – May 2026",
+    description:
+      "Full-stack ground station dashboard for drone-based aircraft inspection. Used Claude Code as the primary development interface to build React components, Supabase auth flows, and RLS policies, then integrated a YOLOv11 model for surface defect detection and validated the system in MATLAB and Unreal Engine simulation before a live demo to a faculty examination committee.",
+    metrics: [
+      { value: "89%", label: "PRECISION" },
+      { value: "85%", label: "RECALL" },
+      { value: "10+", label: "PROD RELEASES" }
+    ],
+    tags: ["React 18", "TypeScript", "Supabase", "YOLOv11", "MATLAB", "Unreal Engine", "Vercel"],
+    github: "https://github.com/MoMah54",
+    demo: null
+  },
+  {
+    name: "AI-Native TradingView Analysis System",
+    period: "Apr 2025",
+    description:
+      "Claude Code-integrated workflow that turns natural language prompts into live Pine Script indicators on TradingView in real time. Covers multi-asset, multi-timeframe analysis (RSI, MACD, EMA confluence) with prompt-engineering patterns built specifically to catch and correct failure modes in AI-generated Pine Script.",
+    metrics: [],
+    tags: ["Pine Script", "Claude Code", "MCP", "Python", "TradingView API"],
+    github: "https://github.com/MoMah54",
+    demo: null
+  }
+
+  // Add your next project here, e.g.:
+  // {
+  //   name: "Project Name",
+  //   period: "Month Year – Month Year",
+  //   description: "One or two sentences on what it does and your role.",
+  //   metrics: [ { value: "92%", label: "ACCURACY" } ],
+  //   tags: ["Tech", "Stack", "Here"],
+  //   github: "https://github.com/MoMah54/repo-name",
+  //   demo: "https://your-demo-url.com"   // or null
+  // },
+];
+
+const skills = {
+  ai: ["Python", "AWS SageMaker", "AWS Glue", "Azure AI Foundry", "YOLOv11 / Computer Vision", "MLOps", "Copilot Studio"],
+  lang: ["TypeScript", "React", "SQL", "C / C++", "MATLAB", "Verilog", "JSON"],
+  tools: ["Claude Code", "Supabase", "Docker", "Linux", "Power Automate", "Azure Functions", "Cisco Packet Tracer", "MS Project"]
+};
+
+const experience = [
+  {
+    date: "Jul 2026 – Present",
+    role: "Business Process Automation Intern",
+    org: "Continental International Group — Life Insurance Department, Dubai",
+    bullets: [
+      "Automate life insurance business processes to improve workflow efficiency, accuracy, and turnaround times.",
+      "Build automated workflows for new business applications, offshore solutions, transfers of ownership, and claim-related requests.",
+      "Work with stakeholders to map requirements and streamline approvals for end-to-end processing."
+    ]
+  },
+  {
+    date: "Jun 2025 – Aug 2025",
+    role: "AI Development Intern",
+    org: "Netways FZ LLC, Dubai",
+    bullets: [
+      "Built and deployed AI chatbots in Microsoft Copilot Studio to automate HR and internal business processes.",
+      "Integrated chatbot workflows with ERP systems via Dynamics 365, Power Automate, Azure Functions, and OpenAI services.",
+      "Designed end-to-end services (Salary Certificate, Leave, Travel, Leave Balance) with full testing and client demos."
+    ]
+  },
+  {
+    date: "Aug 2024 – Dec 2025",
+    role: "Campus IT Student Worker",
+    org: "American University of Sharjah",
+    bullets: [
+      "Supported staff and faculty with technical issues, logging ServiceNow tickets weekly.",
+      "Resolved tickets from students, alumni, and faculty via Trengo and AUS ServiceNow."
+    ]
+  },
+  {
+    date: "Jul 2024 – Sep 2024",
+    role: "Peer Leader, Student Leadership Program",
+    org: "American University of Sharjah",
+    bullets: [
+      "Organized orientation sessions and engagement activities for incoming students.",
+      "Served as a liaison between students and faculty on academics, housing, and well-being."
+    ]
+  }
+];
+
+const certifications = [
+  { name: "AWS Certified Machine Learning Engineer – Associate (MLA-C01)", issuer: "Amazon Web Services · Aug 2026" },
+  { name: "Explore Emerging Tech Certification", issuer: "IBM SkillsBuild · Apr 2026" },
+  { name: "Azure AI Fundamentals (AI-900)", issuer: "Microsoft · Jun 2025" },
+  { name: "Computer Hardware Course", issuer: "May 2023" }
+];
+
+/* ==================================================================
+   RENDERING — no need to touch anything below this line
+   ================================================================== */
+
+function renderProjects() {
+  const el = document.getElementById("project-list");
+  el.innerHTML = projects.map(p => `
+    <article class="project">
+      <div class="project-head">
+        <h3>${p.name}</h3>
+        <span class="project-period">${p.period}</span>
+      </div>
+      <div class="project-body">
+        <p class="project-desc">${p.description}</p>
+        ${p.metrics.length ? `
+          <div class="project-metrics">
+            ${p.metrics.map(m => `
+              <div class="metric">
+                <span class="metric-value">${m.value}</span>
+                <span class="metric-label">${m.label}</span>
+              </div>
+            `).join("")}
+          </div>` : ""}
+        <div class="project-tags">
+          ${p.tags.map(t => `<span class="tag">${t}</span>`).join("")}
+        </div>
+        <div class="project-links">
+          ${p.github ? `<a href="${p.github}" target="_blank" rel="noopener">View source →</a>` : ""}
+          ${p.demo ? `<a href="${p.demo}" target="_blank" rel="noopener">Live demo →</a>` : ""}
+        </div>
+      </div>
+    </article>
+  `).join("");
+}
+
+function renderTags(id, list) {
+  document.getElementById(id).innerHTML = list.map(s => `<span class="tag">${s}</span>`).join("");
+}
+
+function renderExperience() {
+  const el = document.getElementById("experience-list");
+  el.innerHTML = experience.map(e => `
+    <div class="timeline-item">
+      <span class="timeline-date">${e.date}</span>
+      <div>
+        <div class="timeline-role">${e.role}</div>
+        <div class="timeline-org">${e.org}</div>
+        <ul class="timeline-bullets">
+          ${e.bullets.map(b => `<li>${b}</li>`).join("")}
+        </ul>
+      </div>
+    </div>
+  `).join("");
+}
+
+function renderCertifications() {
+  const el = document.getElementById("cert-list");
+  el.innerHTML = certifications.map(c => `
+    <div class="cert">
+      <div class="cert-name">${c.name}</div>
+      <div class="cert-issuer">${c.issuer}</div>
+    </div>
+  `).join("");
+}
+
+renderProjects();
+renderTags("skills-ai", skills.ai);
+renderTags("skills-lang", skills.lang);
+renderTags("skills-tools", skills.tools);
+renderExperience();
+renderCertifications();
+
+</script>
+</body>
+</html>
